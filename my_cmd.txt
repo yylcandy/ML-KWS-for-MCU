@@ -1,10 +1,18 @@
-python my_freeze.py --output_file work2/candy/my_frozen.pb  --checkpoint ./work2/DS_CNN/DS_CNN2/training/best/ds_cnn_9388.ckpt-11200 --model_architecture ds_cnn --model_size_info  5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1  --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20
+#for the new kws model with 10 longer(relative) keywords
+python train.py --model_architecture ds_cnn --model_size_info 5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1 --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 --learning_rate 0.0005,0.0001,0.00002 --wanted_words 'yes,left,right,stop,six,follow,happy,forward,marvin,sheila' --how_many_training_steps 10000,10000,10000 --summaries_dir work2/DS_CNN/DS_CNN2/retrain_logs --train_dir work2/DS_CNN/DS_CNN2/train
+
+python my_freeze.py --output_file work/candy/my_frozen.pb  --checkpoint ./work/DS_CNN/DS_CNN2/train/best/ds_cnn_9564.ckpt-12800 --model_architecture ds_cnn --model_size_info  5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1 --wanted_words 'yes,left,right,stop,six,follow,happy,forward,marvin,sheila' --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20
 
 
 
-python train.py --model_architecture ds_cnn --model_size_info 5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1 --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 --learning_rate 0.0005,0.0001,0.00002 --how_many_training_steps 10000,10000,10000 --summaries_dir work2/DS_CNN/DS_CNN2/retrain_logs --train_dir work2/DS_CNN/DS_CNN2/training 
+#for the new kws model with only 3 keywords
+python train.py --model_architecture ds_cnn --model_size_info 5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1 --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 --learning_rate 0.0005,0.0001,0.00002 --wanted_words 'left,stop,forward' --how_many_training_steps 10000,10000,10000 --summaries_dir few_keywords/DS_CNN/retrain_logs --train_dir few_keywords/DS_CNN/training 
+
+python my_freeze.py --output_file few_keywords/candy/my_frozen.pb  --checkpoint ./few_keywords/DS_CNN/training/best/ds_cnn_9646.ckpt-2800 --model_architecture ds_cnn --model_size_info  5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1   --wanted_words 'left,stop,forward' --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20
 
 
+
+#the old commands left here just for reference
 python my_test_pb.py --model_architecture ds_cnn --model_size_info  5 176 10 4 2 1 176 3 3 2 2 176 3 3 1 1 176 3 3 1 1 176 3 3 1 1 --graph ./work2/candy/my_frozen.pb  --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 
 
 
@@ -16,6 +24,5 @@ python my_freeze.py --output_file work/candy/my_frozen.pb  --checkpoint ./work/D
 
 
 python train.py --model_architecture ds_cnn --model_size_info 5 172 10 4 2 1 172 3 3 2 2 172 3 3 1 1 172 3 3 1 1 172 3 3 1 1 --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 --learning_rate 0.0005,0.0001,0.00002 --how_many_training_steps 10000,10000,10000 --summaries_dir work/DS_CNN/DS_CNN2/retrain_logs --train_dir work/DS_CNN/DS_CNN2/training 
-
 
 python my_test_pb.py --model_architecture ds_cnn --model_size_info  5 172 10 4 2 1 172 3 3 2 2 172 3 3 1 1 172 3 3 1 1 172 3 3 1 1 --graph ./work/candy/my_frozen.pb  --dct_coefficient_count 10 --window_size_ms 40 --window_stride_ms 20 
